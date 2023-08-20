@@ -53,8 +53,9 @@ private final CustomerDetailsRepository customerDetailsRepository;
             throw new ApiException("id not found");
         }
         //the details can not be deleted until the customer deleted
-          customerRepository.deleteById(id);
-          customerDetailsRepository.deleteById(id);
+          // customerRepository.deleteById(id);
+          // customerDetailsRepository.deleteById(id);
+        customerDetailsRepository.deleteAllByIdInBatch(Collections.singleton(id));
     }
 
 }
