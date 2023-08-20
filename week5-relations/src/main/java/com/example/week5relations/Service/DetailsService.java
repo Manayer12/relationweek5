@@ -33,27 +33,28 @@ private final CustomerDetailsRepository customerDetailsRepository;
         return customerDetailsRepository.findAll();
     }
 
-    public void updateDetails(CustomerDTO customerDTO){
-        Customer oldcustomer=customerRepository.findCustomerById(customerDTO.getCustomer_id());
-        if(oldcustomer==null){
+
+    public void updateDetails(Integer id,CustomerDTO customerDTO){
+        CustomerDetails customerDetails=customerDetailsRepository.findCustomerDetailsById(id);
+        if(customerDetails==null){
             throw new ApiException("id not found");
         }
-        customerDTO.setGender(customerDTO.getGender());
-        customerDTO.setAge(customerDTO.getAge());
-        customerDTO.setEmail(customerDTO.getEmail());
-
-
-        customerDetailsRepository.save(oldcustomer);
+        customerDetails.setGender(customerDTO.getGender());
+        customerDetails.setAge(customerDTO.getAge());
+        customerDetails.setEmail(customerDTO.getEmail());
+        customerDetailsRepository.save(customerDetails);
 
     }
-    public void deletecustomer(Integer id){
-        Customer oldcustomer=customerRepository.findCustomerById(id);
-        if(oldcustomer==null){
+    public void deleteDetails(Integer id){
+
+        CustomerDetails customerDetails=customerDetailsRepository.findCustomerDetailsById(id);
+        Customer customer=customerRepository.findCustomerById(id);
+        if(customerDetails == null || customer == null){
             throw new ApiException("id not found");
         }
-
-
-        customerRepository.deleteById(id);
+        //the details can not be deleted until the customer deleted
+          customerRepository.deleteById(id);
+          customerDetailsRepository.deleteById(id);
     }
 
 }

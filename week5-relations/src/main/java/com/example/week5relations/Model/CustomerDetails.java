@@ -23,7 +23,6 @@ public class CustomerDetails {
 
     private String email;
 
-
     @OneToOne
     @MapsId
     @JsonIgnore

@@ -3,6 +3,7 @@ package com.example.week5relations.Controller;
 import com.example.week5relations.Api.ApiResponse;
 import com.example.week5relations.DTO.CustomerDTO;
 import com.example.week5relations.Model.Customer;
+import com.example.week5relations.Service.CustomerService;
 import com.example.week5relations.Service.DetailsService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/details")
 public class CustomerDetailsController {
     private final DetailsService detailsService;
+    private final CustomerService customerService;
 
     @PostMapping("/add")
     public ResponseEntity add(@RequestBody @Valid CustomerDTO customerDTO){
@@ -29,15 +31,15 @@ public class CustomerDetailsController {
         return ResponseEntity.status(200).body(detailsService.getAll());
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity update(@PathVariable Integer id,@RequestBody @Valid Customer customer){
-        detailsService.updatecustomer(id, customer);
-        return ResponseEntity.status(200).body(new ApiResponse("customer updated"));
+    public ResponseEntity update(@PathVariable  Integer id,@RequestBody @Valid CustomerDTO customerDTO){
+        detailsService.updateDetails(id,customerDTO);
+        return ResponseEntity.status(200).body(new ApiResponse("Detail Deleted"));
     }
 
-    @PutMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity delete(@PathVariable Integer id){
-        customerService.deletecustomer(id);
-        return ResponseEntity.status(200).body(new ApiResponse("customer deleted"));
+        detailsService.deleteDetails( id);
+        return ResponseEntity.status(200).body(new ApiResponse("Detail deleted"));
     }
 
 

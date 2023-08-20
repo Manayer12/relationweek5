@@ -13,8 +13,6 @@ public class CustomerDTO {
 
     private Integer customer_id;
     private String gender;
-
     private Integer age;
-
     private String email;
 }
