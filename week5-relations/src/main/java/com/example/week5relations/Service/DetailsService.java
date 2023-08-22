@@ -53,15 +53,18 @@ private final CustomerDetailsRepository customerDetailsRepository;
             throw new ApiException("id not found");
         }
         //the details can not be deleted until the customer deleted
-<<<<<<< HEAD
+       public void deleteDetails(Integer id){
+
+        CustomerDetails customerDetails=customerDetailsRepository.findCustomerDetailsById(id);
+        Customer customer=customerRepository.findCustomerById(id);
+        if(customerDetails == null || customer == null){
+            throw new ApiException("id not found");
+        }
+        //the details can not be deleted until the customer deleted
 
           customerRepository.deleteById(id);
           customerDetailsRepository.deleteById(id);
-=======
-          // customerRepository.deleteById(id);
-          // customerDetailsRepository.deleteById(id);
-        customerDetailsRepository.deleteAllByIdInBatch(Collections.singleton(id));
->>>>>>> 15eecdb2fe57cccd631af9ba2b50996d386cf7d8
+    }
     }
 
 }
