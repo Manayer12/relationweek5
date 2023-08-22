@@ -1,8 +1,11 @@
 package com.example.week5relations.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
+
+import java.util.Set;
 
 //replace dat with getter and setter to avoid any problems with relations
 @Setter
@@ -27,4 +30,8 @@ public class Customer {
 @PrimaryKeyJoinColumn
 //connct the keys to gather
 CustomerDetails customerDetails;
+
+@ManyToMany
+@JsonIgnore
+private Set<Merchant> merchantSet;
 }
